@@ -1,0 +1,60 @@
+<table class="table full-width">
+    <thead class="thead-dark">
+      <tr>
+        <th colspan="3">liste des Types</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="AddButton">
+        <td>
+          <button type="button" class="btn btn-success"  mat-raised-button (click)="openAddPopup()"><i class="bi bi-plus-circle"></i>  Ajouter</button>
+        </td>
+      </tr>
+      <tr *ngFor="let typ of type_nom | paginate: { itemsPerPage: 10, currentPage: p }" [class.selected]="typ === selectedType">
+        <div *ngIf="!typeVisibility[typ.id]">
+        <td style="width: 500px;">
+          <button class="btn btn-link" (click)="selectType($event, typ)">{{typ.attributes.type}}</button>
+        </td>
+          <td style="width: 430px;">
+          <select>
+            <option *ngFor="let societe of typ.societesList" [value]="societe.attributes.Nom">{{societe.attributes.Nom}}</option>
+          </select>
+        </td>
+      </div>
+        <div *ngIf="typeVisibility[typ.id]">
+          <td>
+            <input type="text" class="form-control" id="newTypeName" [(ngModel)]="editedTypeName" name="newTypeName">
+          </td>
+          <td>
+            <form>
+              <div class="multiselect">
+                <div class="selectBox" (click)="expanded = !expanded">
+                  <select>
+                    <option>selectionné une societe </option>
+                  </select>
+                  <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+                  <label *ngFor="let  soci of societe_nom" [for]="soci.id">
+                    <input type="checkbox" [id]="soci.id" [value]="soci.id" [checked]="soci.checked" (change)="selectSociety(soci)"/>{{soci.attributes.Nom}}
+                  </label>
+                </div>
+              </div>
+            </form>
+          </td>
+          <td>
+            <button type="button" class="btn btn-success" style="margin-left: 10px;" (click)="editType()">Enregistrer</button>
+          </td>
+        </div>
+        <td>
+          <div class="icon">
+            <button type="button" class="icon-button"  (click)="typeVisibility[typ.id] = !typeVisibility[typ.id]" [disabled]="!selectedType" ><i class="bi bi-pencil"></i></button>
+            <button type="button" class="icon-button ml-auto" (click)="deleteType()" [disabled]="!selectedType"><i class="bi bi-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>

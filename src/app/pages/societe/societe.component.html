@@ -1,0 +1,113 @@
+<table class="table full-width">
+  <thead>
+    <tr>
+      <th>liste des societes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="AddButton">
+      <td>
+        <button type="button" class="btn btn-success"  mat-raised-button (click)="openAddPopup()"><i class="bi bi-plus-circle"></i>  Ajouter</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <table>
+    <tbody>
+    <tr *ngFor="let soci of societe_nom | paginate: { itemsPerPage: 10, currentPage: p }" [class.selected]="soci === selectedsociete">
+      <div  *ngIf="!societeVisibility[soci.id]">
+        <td style="width: 220px;">
+          <button class="btn btn-link" (click)="selectSociete($event, soci)">{{soci.attributes.Nom}}</button>
+        </td>
+        <td style="width: 300px;">
+          {{soci.attributes.Description}}
+        </td>
+        <td style="width: 200px;">
+          <select>
+            <option *ngFor="let departement of soci.departementsList" [value]="departement.attributes.nom">{{departement.attributes.nom}}</option>
+          </select>
+        </td>
+        <td style="width: 200px;">
+          <select>
+            <option *ngFor="let type of soci.typesList" [value]="type.attributes.type">{{type.attributes.type}}</option>
+          </select>
+        </td>
+        <td style="width: 200px;">
+          <select>
+            <option *ngFor="let compte of soci.comptesList" [value]="compte.attributes.email">{{compte.attributes.email}}</option>
+          </select>
+        </td>
+      </div>
+      <div *ngIf="societeVisibility[soci.id]">
+        <td>
+          <input type="text" class="form-control" id="newSocieteName" [(ngModel)]="editedSocieteName" name="newSocieteName">
+        </td> 
+        <td>
+          <input type="text" class="form-control" id="newSocieteDescription" [(ngModel)]="editedSocieteDescription" name="newSocieteDescription">
+        </td>
+        <td>
+          <form>
+            <div class="multiselect">
+              <div class="selectBox" (click)="expanded = !expanded">
+                <select>
+                  <option>departements </option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+              <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+                <label *ngFor="let  dep of dep_nom" [for]="dep.id">
+                  <input type="checkbox" [id]="dep.id" [value]="dep.id" [checked]="dep.checked" (change)="selectDepartement(dep)"/>{{dep.attributes.nom}}
+                </label>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td>
+          <form>
+            <div class="multiselect">
+              <div class="selectBox" (click)="expanded = !expanded">
+                <select>
+                  <option>types </option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+              <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+                <label *ngFor="let typ of type_nom" [for]="typ.id">
+                  <input type="radio" [id]="typ.id" [value]="typ.id" name="type"  [checked]="typ.checked" (change)="selectType(typ)"/>{{typ.attributes.type}}
+                </label>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td>
+          <form>
+            <div class="multiselect">
+              <div class="selectBox" (click)="expanded = !expanded">
+                <select>
+                  <option>Comptes </option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+              <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+                <label *ngFor="let comp of compte_email" [for]="comp.id">
+                  <input type="checkbox" [id]="comp.id" [value]="comp.id" name="compte" [checked]="comp.checked" (change)="selectCompte(comp)"/>{{comp.attributes.email}}
+                </label>
+              </div>
+            </div>
+          </form>
+          <td>
+          <button type="button" class="btn btn-success" style="margin-left: 10px;" (click)="editSociete()">Enregistrer</button>
+        </td>
+      </div>
+      <td>
+          <div class="icon">
+            <button mat-raised-button (click)="openPopup()" type="button" class="icon-button" (click)="societeVisibility[soci.id] = !societeVisibility[soci.id]" [disabled]="!selectedSociete"><i class="bi bi-pencil"></i></button>
+            <button type="button" class="icon-button ml-auto" (click)="deleteSociete()" [disabled]="!selectedSociete"><i class="bi bi-trash"></i></button>
+          </div>
+       </td>
+    </tr>
+  </tbody>
+
+<div class="text-center">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>

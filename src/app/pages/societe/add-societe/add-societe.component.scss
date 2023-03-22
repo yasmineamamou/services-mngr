@@ -1,0 +1,49 @@
+.editclass{
+display: flex;
+align-items: center;
+padding-right: 1cm;
+}
+.first-line{
+  display: flex;
+  align-items: center;  
+}
+.text-center{
+  float: right;
+}
+.form-control{
+  width: 250px;
+}
+.selectBox {
+  position: relative;
+}
+.selectBox select { 
+  font-weight: bold;
+  width: max-content;
+}
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+#checkboxes label {
+  display: block;
+  font-weight: normal;
+  font-size: 14px;
+}
+#checkboxes label:hover {
+  background-color: #1e90ff;
+  color: white;
+}
+#checkboxes {
+  height: 100px;
+  overflow: auto; 
+}
+#checkboxes input[type="checkbox"] {
+  margin-right: 10px;
+}
+td{
+  padding-right: 15px;
+  padding-bottom: 10px;
+}

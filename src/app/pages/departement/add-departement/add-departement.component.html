@@ -1,0 +1,33 @@
+<div>
+    <h1>Crée un nouveau Departement</h1>
+    <hr>
+</div>
+<table style="height: 200px;">
+    <tr>
+        <td>
+            <input type="text" class="form-control" id="newDepName" [(ngModel)]="newDepName" name="newDepName" placeholder="Nom de département">
+        </td>
+        <td>
+          <form>
+            <div class="multiselect">
+              <div class="selectBox" (click)="expanded = !expanded">
+                <select>
+                  <option>selectionné une societe </option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+              <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+                <label *ngFor="let  soci of societe_nom" [for]="soci.id">
+                  <input type="checkbox" [id]="soci.id" [value]="soci.id" [checked]="soci.checked" (change)="selectSociety(soci)"/>{{soci.attributes.Nom}} 
+                </label>
+              </div>
+            </div>
+          </form>
+        </td>
+     </tr>
+     <tr>     
+        <td>
+          <button type="button" class="btn btn-success" (click)="addDepartement()" (click)="closeAddPopup()">Ajouter</button>
+        </td>
+      </tr>
+</table>

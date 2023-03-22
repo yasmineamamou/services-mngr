@@ -1,0 +1,83 @@
+// Define variables for icon color and size
+$icon-color: #333;
+$icon-size: 20px;
+
+// Import Font Awesome CSS
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import '~bootstrap-icons/font/bootstrap-icons.css';
+
+// Style the button to remove default styles
+.icon-button {
+  background-color: transparent;
+  border: none;
+  
+
+  // Style the icon inside the button
+  i {
+    color: $icon-color;
+    font-size: $icon-size;
+  }
+}
+
+.editclass{
+display: flex;
+align-items: center;
+padding-right: 1cm;
+}
+.first-line{
+  display: flex;
+  align-items: center;
+ 
+}
+.text-center{
+  float: right;
+}
+.form-control{
+  width: 250px;
+}
+.selectBox {
+  position: relative;
+}
+.selectBox select { 
+  font-weight: bold;
+  width: max-content;
+}
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+#checkboxes label {
+  display: block;
+  font-weight: normal;
+  font-size: 14px;
+}
+#checkboxes label:hover {
+  background-color: #1e90ff;
+  color: white;
+}
+#checkboxes {
+  height: 100px;
+  overflow: auto;
+  width: 120%;
+}
+#checkboxes input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+#checkboxes label span {
+  display: inline-block;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.AddButton td{
+  float: right;
+}
+th{
+  background-color: rgba(0, 0, 0, 0.836); 
+  color:white
+}

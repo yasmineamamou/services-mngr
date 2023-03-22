@@ -1,0 +1,35 @@
+<table class="table full-width">
+    <thead class="thead-dark">
+      <tr>
+        <th colspan="6">liste des comptes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="AddButton">
+        <td>
+          <button type="button" class="btn btn-success"  mat-raised-button (click)="openAddPopup()"><i class="bi bi-plus-circle"></i>  Ajouter</button>
+        </td>
+      </tr>
+      <tr *ngFor="let comp of compte_nom | paginate: { itemsPerPage: 10, currentPage: p }" [class.selected]="comp === selectedcompte">
+        
+        <td style="width: 120px;">
+          <button class="btn btn-link" (click)="selectCompte($event, comp)">{{comp.attributes.Nom}}</button>
+        </td>
+        <td style="width: 120px;">{{comp.attributes.Prenom}}</td>
+        <td style="width: 320px;">{{comp.attributes.email}}</td>
+        <td style="width: 120px;">{{comp.attributes.telephone}}</td>
+        <td *ngFor="let departement of comp.departementsList" [value]="departement.attributes.nom">{{departement.attributes.nom}}</td>
+        <td *ngFor="let soci of comp.societesList" [value]="soci.attributes.Nom">{{soci.attributes.Nom}}</td>
+      
+      <td>
+        <div style="float: right;" class="icon">
+            <button type="button" class="icon-button" (click)="compteVisibility[comp.id] = !compteVisibility[comp.id]" [disabled]="!selectedCompte"><i class="bi bi-pencil"></i></button>
+            <button type="button" class="icon-button ml-auto" (click)="deleteCompte()" [disabled]="!selectedCompte"><i class="bi bi-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-center">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>

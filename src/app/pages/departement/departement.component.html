@@ -1,0 +1,70 @@
+<table class="table full-width">
+  <thead class="thead-dark">
+    <tr>
+      <th colspan="3">liste des départements</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr class="AddButton">
+        <td>
+          <button type="button" class="btn btn-success"  mat-raised-button (click)="openAddPopup()"><i class="bi bi-plus-circle"></i>  Ajouter</button>
+        </td>
+      </tr>
+    <tr *ngFor="let dep of dep_nom | paginate: { itemsPerPage: 10, currentPage: p }" [class.selected]="dep === selectedDep">
+      <div *ngIf="!depVisibility[dep.id]" style="display: flex; align-items: center;">
+        <td style="width: 120px;">
+          <button class="btn btn-link" (click)="selectDepartement($event, dep)">{{dep.attributes.nom}}</button>
+        </td>
+        <td style="margin-left: 450px; margin-right: 310px;">
+          <select>
+            <option *ngFor="let societe of dep.societiesList" [value]="societe.attributes.Nom">{{societe.attributes.Nom}}</option>
+          </select>
+        </td>
+      </div>
+      <div  *ngIf="depVisibility[dep.id]">
+        <td>
+          <input type="text" class="form-control" id="newDepName" [(ngModel)]="editedDepName" name="newDepName">
+        </td>
+        <td>
+          <form>
+            <div class="multiselect">
+              <div class="selectBox" (click)="expanded = !expanded">
+                <select>
+                  <option>selectionné une societe </option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+              <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+                <label *ngFor="let  soci of societe_nom" [for]="soci.id">
+                  <input type="checkbox" [id]="soci.id" [value]="soci.id" [checked]="soci.checked" (change)="selectSociety(soci)"/>{{soci.attributes.Nom}} 
+                </label>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td>
+          <button type="button" class="btn btn-success" style="margin-left: 10px;" (click)="editDepartement()">Enregistrer</button>
+        </td>
+      </div>
+      <td>
+      <div class="icon">
+        <button type="button" class="icon-button"   (click)="openEditPopup()" (click)="depVisibility[dep.id] = !depVisibility[dep.id]" [disabled]="!selectedDep"><i class="bi bi-pencil"></i></button>
+        <button type="button" class="icon-button ml-auto" (click)="deleteDepartement()" [disabled]="!selectedDep"><i class="bi bi-trash"></i></button>
+      </div>
+    </td>
+    </tr>
+  </tbody>
+</table>
+<div class="text-center">
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
+
+
+
+
+
+
+
+
+
+

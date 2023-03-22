@@ -1,0 +1,66 @@
+<div>
+    <h1>Crée un nouveau Compte</h1>
+    <hr>
+</div>
+<table>
+    <tr>
+        <td>
+            <input type="text" class="form-control" id="newCompteNom" [(ngModel)]="newCompteNom" name="newCompteNom" placeholder="Nom">
+        </td>
+        <td>
+            <input type="text" class="form-control" id="newComptePrenom" [(ngModel)]="newComptePrenom" name="newComptePrenom" placeholder="Prenom">
+        </td>
+        <td>
+            <input type="tel" class="form-control" id="newCompteTel" [(ngModel)]="newCompteTel" name="newCompteTel" placeholder="Telephone" pattern="[0-9]{2}-[0-9]{3}-[0-9]{3}" required>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input type="email" class="form-control" id="newCompteEmail" [(ngModel)]="newCompteEmail" name="newCompteEmail" placeholder="Email">
+        </td>
+        <td>
+            <input type="password" class="form-control" id="newComptePassword" [(ngModel)]="newComptePassword" name="newComptePassword" placeholder="Password">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <form style="margin-right: 15px;">
+                <div class="multiselect">
+                  <div class="selectBox" (click)="expanded = !expanded">
+                    <select>
+                      <option>departements </option>
+                    </select>
+                    <div class="overSelect"></div>
+                  </div>
+                  <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+                    <label *ngFor="let  dep of dep_nom" [for]="dep.id">
+                      <input type="checkbox" [id]="dep.id" [value]="dep.id" [checked]="dep.checked" (change)="selectDepartement(dep)"/>{{dep.attributes.nom}}
+                    </label>
+                  </div>
+                </div>
+              </form>
+        </td>
+        <td>
+            <form>
+                <div class="multiselect">
+                  <div class="selectBox" (click)="expanded = !expanded">
+                    <select>
+                      <option>societes </option>
+                    </select>
+                    <div class="overSelect"></div>
+                  </div>
+                  <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+                    <label *ngFor="let  soci of societe_nom" [for]="soci.id">
+                      <input type="checkbox" [id]="soci.id" [value]="soci.id" [checked]="soci.checked" (change)="selectSociety(soci)"/>{{soci.attributes.Nom}}
+                    </label>
+                  </div>
+                </div>
+            </form>
+        </td>
+    </tr>
+    <tr>     
+        <td>
+          <button type="button" class="btn btn-success" (click)="addCompte()" (click)="closeAddPopup()">Ajouter</button>
+        </td>
+      </tr>
+</table>

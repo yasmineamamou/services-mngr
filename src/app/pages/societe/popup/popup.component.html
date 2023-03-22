@@ -1,0 +1,71 @@
+<div>
+  <h1>Modifier une societe</h1>
+  <hr>
+</div>
+<table>
+<tr>
+<td>
+  <input type="text" class="form-control" id="newSocieteName" [(ngModel)]="editedSocieteName" name="newSocieteName">
+</td> 
+<td>
+  <input type="text" class="form-control" id="newSocieteDescription" [(ngModel)]="editedSocieteDescription" name="newSocieteDescription">
+</td>
+<td>
+  <form>
+    <div class="multiselect">
+      <div class="selectBox" (click)="expanded = !expanded">
+        <select>
+          <option>departements </option>
+        </select>
+        <div class="overSelect"></div>
+      </div>
+      <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+        <label *ngFor="let  dep of dep_nom" [for]="dep.id">
+          <input type="checkbox" [id]="dep.id" [value]="dep.id" [checked]="dep.checked" (change)="selectDepartement(dep)"/>{{dep.attributes.nom}}
+        </label>
+      </div>
+    </div>
+  </form>
+</td>
+<td>
+  <form>
+    <div class="multiselect">
+      <div class="selectBox" (click)="expanded = !expanded">
+        <select>
+          <option>types </option>
+        </select>
+        <div class="overSelect"></div>
+      </div>
+      <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+        <label *ngFor="let typ of type_nom" [for]="typ.id">
+          <input type="radio" [id]="typ.id" [value]="typ.id" name="type"  [checked]="typ.checked" (change)="selectType(typ)"/>{{typ.attributes.type}}
+        </label>
+      </div>
+    </div>
+  </form>
+</td>
+<td>
+  <form>
+    <div class="multiselect">
+      <div class="selectBox" (click)="expanded = !expanded">
+        <select>
+          <option>Comptes </option>
+        </select>
+        <div class="overSelect"></div>
+      </div>
+      <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+        <label *ngFor="let comp of compte_email" [for]="comp.id">
+          <input type="checkbox" [id]="comp.id" [value]="comp.id" name="compte" [checked]="comp.checked" (change)="selectCompte(comp)"/>{{comp.attributes.email}}
+        </label>
+      </div>
+    </div>
+  </form>
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <button type="button" class="btn btn-success" style="margin-left: 10px;" (click)="editSociete()">Enregistrer</button>
+</td>
+</tr>
+
+</table>

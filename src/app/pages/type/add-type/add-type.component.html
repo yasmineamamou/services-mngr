@@ -1,0 +1,35 @@
+<div>
+    <h1>Crée un nouveau Type</h1>
+    <hr>
+</div>
+<table style="height: 300px;">
+    <tr>
+        <td class="col_1">
+          <div class="first-line">
+            <input type="text" class="form-control" id="newTypeName" [(ngModel)]="newTypeName" name="newTypeName" placeholder="Type">
+          </div>
+        </td>
+        <td>
+          <form>
+            <div class="multiselect">
+              <div class="selectBox" (click)="expanded = !expanded">
+                <select>
+                  <option>selectionné une societe </option>
+                </select>
+                <div class="overSelect"></div>
+              </div>
+              <div id="checkboxes" [style.display]="expanded ? 'block' : 'none'">
+                <label *ngFor="let  soci of societe_nom" [for]="soci.id">
+                  <input type="checkbox" [id]="soci.id" [value]="soci.id" [checked]="soci.checked" (change)="selectSociety(soci)"/>{{soci.attributes.Nom}}
+                </label>
+              </div>
+            </div>
+          </form>
+        </td>
+    </tr>
+        <tr>     
+            <td>
+              <button type="button" class="btn btn-success" (click)="addType()" (click)="closeAddPopup()">Ajouter</button>
+            </td>
+        </tr>
+</table>
